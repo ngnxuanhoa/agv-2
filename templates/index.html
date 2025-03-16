@@ -1,64 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AGV Control</title>
+    <title>Điều khiển xe AGV</title>
     <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            color: #333;
-        }
-        #video-stream {
-            width: 80%;
-            max-width: 640px;
-            border: 2px solid #333;
-            margin-bottom: 20px;
-        }
-        .control-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            width: 200px;
-            margin: auto;
-        }
-        .btn {
-            padding: 15px;
-            font-size: 18px;
-            cursor: pointer;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        .btn:active {
-            background-color: #0056b3;
-        }
+        body { text-align: center; font-family: Arial, sans-serif; }
+        img { width: 80%; max-width: 640px; margin-bottom: 20px; }
+        button { padding: 10px 20px; font-size: 18px; margin: 5px; }
     </style>
-</head>
-<body>
-    <h1>Điều khiển xe AGV</h1>
-    <img id="video-stream" src="{{ url_for('video_feed') }}" alt="Camera Stream">
-    
-    <div class="control-buttons">
-        <button class="btn" onclick="sendCommand('forward')">⬆️</button>
-        <button class="btn" onclick="sendCommand('left')">⬅️</button>
-        <button class="btn" onclick="sendCommand('stop')">⏹</button>
-        <button class="btn" onclick="sendCommand('right')">➡️</button>
-        <button class="btn" onclick="sendCommand('backward')">⬇️</button>
-    </div>
-
     <script>
         function sendCommand(command) {
             fetch('/control', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'command=' + command
-            }).then(response => console.log("Command sent:", command));
+            });
         }
     </script>
+</head>
+<body>
+    <h1>Điều khiển xe AGV</h1>
+    <img src="{{ url_for('video_feed') }}" alt="Video Stream">
+    <br>
+    <button onclick="sendCommand('forward')">Tiến</button>
+    <button onclick="sendCommand('left')">Trái</button>
+    <button onclick="sendCommand('stop')">Dừng</button>
+    <button onclick="sendCommand('right')">Phải</button>
+    <button onclick="sendCommand('backward')">Lùi</button>
 </body>
 </html>

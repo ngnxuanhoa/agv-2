@@ -3,6 +3,7 @@ import RPi.GPIO as GPIO
 from picamera2 import Picamera2
 import cv2
 import time
+import atexit
 
 app = Flask(__name__)
 
@@ -81,3 +82,10 @@ def video_feed():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+def cleanup():
+    print("Đang dừng camera và giải phóng GPIO...")
+    picam2.stop()
+    GPIO.cleanup()
+
+atexit.register(cleanup)
+

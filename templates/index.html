@@ -6,8 +6,11 @@
     <title>AGV Control</title>
 </head>
 <body>
-    <h1>AGV Control Panel</h1>
-    <form action="/control" method="post">
+    <h1>AGV Camera Feed</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+
+    <h2>Controls</h2>
+    <form method="post" action="/control">
         <button type="submit" name="command" value="forward">Forward</button>
         <button type="submit" name="command" value="backward">Backward</button>
         <button type="submit" name="command" value="stop">Stop</button>
